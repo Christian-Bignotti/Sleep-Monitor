@@ -15,4 +15,7 @@ private:
 public:
     void begin();
     void process();
+
+    void onMPUInterrupt();
+    void onMAXInterrupt();
 };
