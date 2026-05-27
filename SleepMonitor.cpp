@@ -54,26 +54,27 @@ void SleepMonitor::process() {
 
     if (mpu.hasData()) {
         float motion = mpu.getMotion();
+    }
 
-        if (max.hasSample()) {
-            max.getSample();
+    if (max.hasSample()) {
+        max.getSample();
+        hrv.processBeat(millis());
+        
+        float hrvValue = hrv.computeRMSSD();
 
-            float hrvValue = hrv.computeRMSSD();
+        SleepStage stage =
+            classifier.classify(motion, hrvValue);
 
-            SleepStage stage =
-                classifier.classify(motion, hrvValue);
-
-            switch(stage) {
-                case AWAKE:
-                    Serial.println("Awake");
-                    break;
-                case LIGHT:
-                    Serial.println("Light Sleep");
-                    break;
-                case DEEP:
-                    Serial.println("Deep Sleep");
-                    break;
-            }
+        switch(stage) {
+            case AWAKE:
+                Serial.println("Awake");
+                break;
+            case LIGHT:
+                Serial.println("Light Sleep");
+                break;
+            case DEEP:
+                Serial.println("Deep Sleep");
+                break;
         }
     }
 }
