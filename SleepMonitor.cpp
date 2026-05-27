@@ -56,7 +56,7 @@ void SleepMonitor::process() {
         float motion = mpu.getMotion();
     }
 
-    if (max.hasSample()) {
+    if (max.hasSample()) { // Only classifies sleep when an HR sample is recorded
         max.getSample();
         hrv.processBeat(millis());
         
