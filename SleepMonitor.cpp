@@ -15,11 +15,6 @@ void IRAM_ATTR maxISR() {
 #define MPU_INT_PIN 2
 #define MAX_INT_PIN 3
 
-// TODO:
-
-
-// 1. Need to add ISR handling in Sleepmon cpp
-// 2. Attach interrupt
 
 void SleepMonitor::begin() {
     Wire.begin(8, 9);
